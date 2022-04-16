@@ -6,10 +6,11 @@ import "taro-ui/dist/style/components/button.scss"; // 按需引入
 import "./index.less";
 
 export default class Login extends React.Component {
-  state = {
-    userName: "",
-    userPwd: ""
-  };
+  // state = {
+  //   userName: "",
+  //   userPwd: ""
+  //   // userIdd
+  // };
   //获取ref
   username = createRef();
   password = createRef();
@@ -47,18 +48,16 @@ export default class Login extends React.Component {
       success: function(res) {
         const message = res.data.message;
         const jwt = res.data.data.jwt;
-        console.log(message);
-        console.log(jwt);
         Taro.setStorage({
           key: "token",
           data: jwt
         });
-        console.log("@");
-        Taro.getStorage({
-          key: "token",
-          success: function(res) {
-            console.log(res.data);
-          }
+        Taro.setStorage({
+          key: "userId",
+          data: res.data.data.userId
+        });
+        Taro.switchTab({
+          url: "/pages/index/index"
         });
       },
       fail: function(err) {
