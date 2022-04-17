@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, RadioGroup } from "@tarojs/components";
+import { View, Image, Button, RadioGroup } from "@tarojs/components";
 import { AtRadio, AtCountdown } from "taro-ui";
 import Taro from "@tarojs/taro";
 
@@ -7,8 +7,9 @@ import { baseUrl } from "../../baseUrl";
 
 //按需导入组件
 import "taro-ui/dist/style/components/countdown.scss";
-import "taro-ui/dist/style/components/radio.scss";
+// import "taro-ui/dist/style/components/radio.scss";
 import "./index.less";
+import "../../../img/question-back.png";
 
 export default class Answer extends React.Component {
   state = {
@@ -204,53 +205,76 @@ export default class Answer extends React.Component {
   render() {
     const { questions, index } = this.state;
     return (
-      <View className="index">
-        <View>题目</View>
-        <AtCountdown
-          isCard
-          onTimeUp={this.onTimeUp.bind(this)}
-          isShowHour={false}
-          minutes={10}
-          seconds={0}
-        />
-        {/* 渲染题目 */}
-        <View>
-          <RadioGroup key={questions[index].questionId}>
-            <View>
-              {index + 1}.{questions[index].quesDetail}
-            </View>
-            <AtRadio
-              options={[
-                {
-                  label: `A.${questions[index].quesA}`,
-                  value: index + "." + questions[index].quesA
-                },
-                {
-                  label: `B.${questions[index].quesB}`,
-                  value: index + "." + questions[index].quesB
-                },
-                {
-                  label: `C.${questions[index].quesC}`,
-                  value: index + "." + questions[index].quesC
-                },
-                {
-                  label: `D.${questions[index].quesD}`,
-                  value: index + "." + questions[index].quesD
-                }
-              ]}
-              value={this.state.value}
-              onClick={this.handleChange.bind(this)}
-            />
-            <Button size="mini" onClick={this.last.bind(this)}>
-              上一题
-            </Button>
-            <Button size="mini" onClick={this.load.bind(this)}>
-              提交
-            </Button>
-            <Button size="mini" onClick={this.next.bind(this)}>
-              下一题
-            </Button>
-          </RadioGroup>
+      <View className="page">
+        <Image className="bgi" src="../../../img/question-back.png" />
+        <View className="title">题目</View>
+        {/* 倒计时 */}
+        <View className="time">
+          <AtCountdown
+            className="last_time"
+            format={{ minutes: ":", seconds: "" }}
+            onTimeUp={this.onTimeUp.bind(this)}
+            isShowHour={false}
+            minutes={10}
+            seconds={0}
+          />
+        </View>
+        <View className="content">
+          {/* 题目 */}
+          <View className="questions">
+            <RadioGroup className="question" key={questions[index].questionId}>
+              <View className="quesDetail">
+                {index + 1}.{questions[index].quesDetail}
+              </View>
+              <AtRadio
+                className="answers"
+                options={[
+                  {
+                    label: `A.${questions[index].quesA}`,
+                    value: index + "." + questions[index].quesA
+                  },
+                  {
+                    label: `B.${questions[index].quesB}`,
+                    value: index + "." + questions[index].quesB
+                  },
+                  {
+                    label: `C.${questions[index].quesC}`,
+                    value: index + "." + questions[index].quesC
+                  },
+                  {
+                    label: `D.${questions[index].quesD}`,
+                    value: index + "." + questions[index].quesD
+                  }
+                ]}
+                value={this.state.value}
+                onClick={this.handleChange.bind(this)}
+              />
+            </RadioGroup>
+          </View>
+        </View>
+        {/* 按钮 */}
+        <View className="btns">
+          <Button
+            className="btns last"
+            size="mini"
+            onClick={this.last.bind(this)}
+          >
+            上一题
+          </Button>
+          <Button
+            className="btns load"
+            size="mini"
+            onClick={this.load.bind(this)}
+          >
+            提交
+          </Button>
+          <Button
+            className="btns next"
+            size="mini"
+            onClick={this.next.bind(this)}
+          >
+            下一题
+          </Button>
         </View>
       </View>
     );
