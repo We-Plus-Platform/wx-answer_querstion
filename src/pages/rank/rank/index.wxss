@@ -1,0 +1,39 @@
+.rank-index {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.rank-index .bgi {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.rank-index .userImg {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+.rank-index .rank-header {
+  height: 20%;
+}
+.rank-index .rank {
+  height: 80%;
+  border-radius: 5%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+.rank-index .rank .rank-my {
+  display: flex;
+}
+.rank-index .rank .rank-all {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: aqua;
+}

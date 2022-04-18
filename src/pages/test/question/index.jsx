@@ -9,7 +9,7 @@ import { baseUrl } from "../../baseUrl";
 import "taro-ui/dist/style/components/countdown.scss";
 // import "taro-ui/dist/style/components/radio.scss";
 import "./index.less";
-import "../../../img/question-back.png";
+import "../../../img/背景.png";
 
 export default class Answer extends React.Component {
   state = {
@@ -206,7 +206,7 @@ export default class Answer extends React.Component {
     const { questions, index } = this.state;
     return (
       <View className="page">
-        <Image className="bgi" src="../../../img/question-back.png" />
+        <Image className="bgi" src="../../../img/背景.png" />
         <View className="title">题目</View>
         {/* 倒计时 */}
         <View className="time">
