@@ -1,11 +1,13 @@
 import { Component } from "react";
-import { View, Button } from "@tarojs/components";
+import { View, Button, Image } from "@tarojs/components";
 import { AtButton } from "taro-ui";
 import Taro from "@tarojs/taro";
 import { baseUrl } from "../baseUrl";
 
 import "taro-ui/dist/style/components/button.scss"; // 按需引入
 import "./index.less";
+import homeBack from "../../img/背景.png";
+import homeContent from "../../img/首页content.png";
 
 export default class Index extends Component {
   state = {
@@ -64,7 +66,7 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
-    // Taro.clearStorage();
+    Taro.clearStorage();
     //在用户进入页面进行判断,如果有用户数据,直接跳转到my
     Taro.getStorage({
       key: "userInfo",
@@ -85,7 +87,11 @@ export default class Index extends Component {
   render() {
     return (
       <View className="index">
-        <Button onClick={this.clickMe.bind(this)}>进入答题小程序</Button>
+        <Image className="back" src={homeBack} />
+        <Image className="homeContent" src={homeContent} />
+        <Button className="btn" onClick={this.clickMe.bind(this)}>
+          进入答题小程序
+        </Button>
       </View>
     );
   }

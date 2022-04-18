@@ -6,7 +6,7 @@ import { baseUrl } from "../../baseUrl";
 import "taro-ui/dist/style/components/button.scss"; // 按需引入
 import "./index.less";
 
-import "../../../img/背景.png";
+import back from "../../../img/背景.png";
 
 export default class Rank extends Component {
   state = {
@@ -55,42 +55,67 @@ export default class Rank extends Component {
   render() {
     const { myRank } = this.state;
     return (
-      <View className="rank-index">
-        <Image className="bgi" src="../../../img/背景.png" />
-        <View className="rank-header">
-          <View>重邮最强大脑</View>
-          <View>排行榜</View>
-        </View>
-
-        {/* 渲染排行 */}
-        <View className="rank">
-          {/* 个人信息 */}
-          <View className="rank-my">
-            <Text>我的成绩</Text>
-            <Image className="userImg" src={myRank.avatarUrl} />
-            <Text>{myRank.nickName}</Text>
-            <Text>{myRank.totalScore}</Text>
-            <Text>{myRank.ranking}</Text>
-          </View>
-          <View className="rank-all">
-            <View className="rank-title">
-              <Text>排名</Text>
-              <Text>姓名</Text>
-              <Text>得分</Text>
-            </View>
-            {this.state.rankList.map(rankObj => {
-              return (
-                <View key={rankObj.basicId}>
-                  <Image className="userImg" src={rankObj.avatarUrl} />
-                  <Text>{rankObj.nickName}</Text>
-                  <Text>{rankObj.totalScore}</Text>
-                  <Text>{rankObj.ranking}</Text>
+      <View className="mw-page">
+        <View className="cu-list menu menu-avatar mw-menu">
+          {this.state.rankList.map(rankObj => {
+            return (
+              <View className="cu-item" key={rankObj.basicId}>
+                <Image
+                  className="cu-avatar round lg"
+                  src={rankObj.avatarUrl}
+                ></Image>
+                <View className="content">
+                  <View className="text-gray">第{myRank.ranking}名</View>
+                  <View className="text-grey text-sm">{rankObj.nickName}</View>
                 </View>
-              );
-            })}
-          </View>
+                <View className="action">
+                  <View className="text-red text-xl">
+                    {rankObj.totalScore}分
+                  </View>
+                </View>
+              </View>
+            );
+          })}
         </View>
       </View>
+      //   <View className="rank-index">
+      //     <Image className="bgi" src={back} />
+      //     <View className="rank-header">
+      //       <View className="rank-header-title">重邮最强大脑</View>
+      //       <View>排行榜</View>
+      //     </View>
+
+      //     {/* 渲染排行 */}
+      //     <View className="rank">
+      //       {/* 个人信息 */}
+      //       <View className="rank-my">
+      //         <Text>我的成绩:</Text>
+      //         {/* <Image className="userImg" src={myRank.avatarUrl} /> */}
+      //         <Text>{myRank.ranking}</Text>
+      //         <Text>{myRank.nickName}</Text>
+      //         <Text>{myRank.totalScore}</Text>
+      //       </View>
+      //       <View className="rank-all">
+      //         <View className="rank-title">
+      //           <Text>排名</Text>
+      //           <Text>姓名</Text>
+      //           <Text>得分</Text>
+      //         </View>
+      //         {this.state.rankList.map(rankObj => {
+      //           return (
+      //             <View className="rank-content" key={rankObj.basicId}>
+      //               <Text>{rankObj.ranking}</Text>
+      //               <View>
+      //                 <Image className="userImg" src={rankObj.avatarUrl} />
+      //                 <Text>{rankObj.nickName}</Text>
+      //               </View>
+      //               <Text>{rankObj.totalScore}</Text>
+      //             </View>
+      //           );
+      //         })}
+      //       </View>
+      //     </View>
+      //   </View>
     );
   }
 }

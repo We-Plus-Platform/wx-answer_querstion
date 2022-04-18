@@ -2,17 +2,32 @@
   width: 100%;
   height: 100%;
 }
-.index .back,
-.index .homeContent {
+.index .back {
   position: absolute;
   z-index: -1;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+.index .content {
+  position: absolute;
+  top: 15%;
+  left: 9%;
+  opacity: 0.6;
+  border-radius: 5%;
+  width: 80%;
+  height: 50%;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 10px;
+  color: #6664d8;
+  background-color: #fff;
+}
 .index .btn {
   position: absolute;
-  bottom: 10%;
+  bottom: 20%;
   left: 22%;
   width: 400px;
   height: 100px;

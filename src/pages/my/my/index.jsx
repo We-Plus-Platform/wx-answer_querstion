@@ -5,6 +5,7 @@ import { baseUrl } from "../../baseUrl";
 
 import "taro-ui/dist/style/components/button.scss"; // 按需引入
 import "./index.less";
+import homeBack from "../../../img/背景.png";
 
 export default class Login extends React.Component {
   //渲染我的页面信息
@@ -35,6 +36,12 @@ export default class Login extends React.Component {
         stuNum
     });
   }
+  //问题反馈
+  loadQuestion() {
+    Taro.navigateTo({
+      url: "/pages/my/changeUser/index"
+    });
+  }
   componentDidMount() {
     Taro.getStorage({
       key: "id",
@@ -44,7 +51,7 @@ export default class Login extends React.Component {
           url: baseUrl + `/system/user/getInfo/${res.data}`,
           success: res => {
             this.setState({ userInfo: res.data.data.userInfo });
-            console.log(this.state.userInfo);
+            console.log("my", this.state.userInfo);
           }
         });
       }
@@ -61,16 +68,21 @@ export default class Login extends React.Component {
     } = this.state.userInfo;
     return (
       <View className="index">
-        <View>
+        <Image className="back" src={homeBack} />
+        <View className="inf">
           <Image className="avatarUrl" src={avatarUrl}></Image>
-          <View>{college}</View>
-          <View>{nickName}</View>
-          <View>{college}</View>
-          <View>{qqNum}</View>
-          <View>{realName}</View>
-          <View>{stuNum}</View>
+          <View>学院:{college}</View>
+          <View>真实姓名:{realName}</View>
+          <View>学号:{stuNum}</View>
+          <View>昵称:{nickName}</View>
+          <View>QQ:{qqNum}</View>
         </View>
-        <View onClick={this.changeUser.bind(this)}>更改信息</View>
+        <View className="changeUser" onClick={this.changeUser.bind(this)}>
+          更改信息
+        </View>
+        <View className="loadQuestion" onClick={this.loadQuestion.bind(this)}>
+          问题反馈
+        </View>
       </View>
     );
   }

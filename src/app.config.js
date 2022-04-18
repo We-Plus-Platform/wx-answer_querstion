@@ -19,21 +19,21 @@ export default {
     list: [
       {
         pagePath: "pages/rank/rank/index",
-        text: "排行",
-        iconPath: "img/排行榜.png"
-        // selectedIconPath: "pages/imgs/tabnav/icon2-act.png"
+        // text: "排行",
+        iconPath: "img/icon/排行榜.png",
+        selectedIconPath: "img/icon/排行榜1.png"
       },
       {
         pagePath: "pages/test/test/index",
-        text: "答题",
-        // iconPath: "pages/img/答题.png"
-        selectedIconPath: "img/答题1.png"
+        // text: "答题",
+        iconPath: "img/icon/答题.png",
+        selectedIconPath: "img/icon/答题1.png"
       },
       {
         pagePath: "pages/my/my/index",
-        text: "我的",
-        iconPath: "img/个人.png"
-        // selectedIconPath: "pages/imgs/tabnav/icon2-act.png"
+        // text: "我的",
+        iconPath: "img/icon/个人.png",
+        selectedIconPath: "img/icon/个人1.png"
       }
     ],
     color: "#000",
