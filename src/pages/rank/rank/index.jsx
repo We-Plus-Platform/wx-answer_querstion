@@ -65,7 +65,7 @@ export default class Rank extends Component {
                   src={rankObj.avatarUrl}
                 ></Image>
                 <View className="content">
-                  <View className="text-gray">第{myRank.ranking}名</View>
+                  <View className="text-gray">第{rankObj.ranking}名</View>
                   <View className="text-grey text-sm">{rankObj.nickName}</View>
                 </View>
                 <View className="action">

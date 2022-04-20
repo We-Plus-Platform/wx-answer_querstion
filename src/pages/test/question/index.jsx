@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Image, Button, RadioGroup } from "@tarojs/components";
-import { AtRadio, AtCountdown } from "taro-ui";
 import Taro from "@tarojs/taro";
+import { View, Image, Button, Radio, RadioGroup } from "@tarojs/components";
+import { AtCountdown } from "taro-ui";
 
 import { baseUrl } from "../../baseUrl";
 
@@ -9,72 +9,81 @@ import { baseUrl } from "../../baseUrl";
 import "taro-ui/dist/style/components/countdown.scss";
 // import "taro-ui/dist/style/components/radio.scss";
 import "./index.less";
-import "../../../img/背景.png";
+import { back } from "../../../img/背景.png";
 
-export default class Answer extends React.Component {
+export default class Question extends React.Component {
   state = {
-    questions: [
+    //选择题
+    selectQues: [],
+    //判断题
+    judgeQues: [],
+    //合并
+    merge: [
       {
-        id: 0,
-        quesA: "大专",
-        quesB: "职高",
-        quesC: "高中",
-        quesD: "监狱",
-        quesDetail: "重庆邮电大学？",
-        questionId: 1,
-        rightAnswer: "监狱"
-      },
-      {
-        id: 0,
-        quesA: "大专",
-        quesB: "职高",
-        quesC: "高中",
-        quesD: "监狱",
-        quesDetail: "重？",
-        questionId: 2,
-        rightAnswer: "监狱"
-      },
-      {
-        id: 0,
-        quesA: "大专",
-        quesB: "职高",
-        quesC: "高中",
-        quesD: "监狱",
-        quesDetail: "重庆？",
-        questionId: 3,
-        rightAnswer: "监狱"
-      },
-      {
-        id: 0,
-        quesA: "大专",
-        quesB: "职高",
-        quesC: "高中",
-        quesD: "监狱",
-        quesDetail: "重庆邮？",
-        questionId: 4,
-        rightAnswer: "监狱"
-      },
-      {
-        id: 0,
-        quesA: "大专",
-        quesB: "职高",
-        quesC: "高中",
-        quesD: "监狱",
-        quesDetail: "重庆邮电？",
-        questionId: 5,
-        rightAnswer: "监狱"
+        quesDetail: "",
+        ansA: "",
+        ansB: "",
+        ansC: "",
+        ansD: ""
       }
     ],
+    //隐藏选项
+    showAnswerC: true,
+    showAnswerD: true,
+    //是否选择
+    isChooseA: false,
+    isChooseB: false,
+    isChooseC: false,
+    isChooseD: false,
+    //分数
     answerCount: 0,
     answerScore: 0,
-    value: "",
+    // value: "",
     //正确答案
-    rightAnswer: ["监狱", "监狱", "监狱", "监狱", "监狱"],
+    rightAnswers: [],
     //选择答案
     chooseValue: [],
     //当前题号
-    index: 0
+    index: 1
   };
+
+  //在页面渲染时获取题目
+  componentDidMount() {
+    Taro.getStorage({
+      key: "id",
+      success: res => {
+        Taro.request({
+          method: "get",
+          url: baseUrl + `/system/ques/${res.data}`,
+          success: response => {
+            console.log(response);
+            const { selectQues } = response.data;
+            //将两个数组进行合并
+            // const mergeQues = selectQues.concat(judgeQues);
+            // this.setState((this.state.merge = selectQues));
+            let rightAnswer = [];
+            selectQues.map(Object => {
+              rightAnswer.push(Object.rightAns);
+            });
+            this.setState({ rightAnswers: rightAnswer });
+            this.setState({ merge: selectQues });
+            console.log("@@", this.state.merge);
+            console.log("@@", this.state.rightAnswers);
+            //对第一题选项是空做处理是空
+            const { merge, index } = this.state;
+            if (merge[index - 1].ansC === null) {
+              this.setState({ showAnswerC: false });
+            } else if (merge[index - 1].ansD === null) {
+              this.setState({ showAnswerD: false });
+            } else {
+              this.setState({ showAnswerC: true });
+              this.setState({ showAnswerD: true });
+            }
+          }
+        });
+      }
+    });
+  }
 
   //答题时间到
   onTimeUp() {
@@ -83,130 +92,200 @@ export default class Answer extends React.Component {
       icon: "success",
       duration: 2000
     });
+    this.load();
   }
 
   //选中答案
   handleChange(value) {
     const { chooseValue, index } = this.state;
+    // console.log(value.detail.value);
     // 对value进行处理得到答案;
-    let chooseValue1 = value.substring(2);
+    let chooseValue1 = value.detail.value;
     if (chooseValue1 !== "") {
-      chooseValue[index] = chooseValue1;
+      chooseValue[index - 1] = chooseValue1;
     } else {
-      chooseValue[index] = "";
+      chooseValue[index - 1] = "";
     }
     console.log(chooseValue);
   }
   //对答案进行矫正
   isRight() {
-    const { chooseValue, rightAnswer, questions } = this.state;
+    const { chooseValue, rightAnswers, merge } = this.state;
     let count = 0;
-    for (let i = 0; i < questions.length; i++) {
-      if (chooseValue[i] === rightAnswer[i]) {
+    for (let i = 0; i < merge.length; i++) {
+      if (chooseValue[i] === rightAnswers[i]) {
         count += 1;
       }
     }
-    this.setState({ answerCount: count });
-    this.setState({ answerScore: count * 10 });
+    this.state.answerCount = count;
+    this.state.answerScore = count * 10;
+    //更新状态失败?
+    // this.setState({ answerCount: count });
+    // this.setState({ answerScore: count * 10 });
   }
   //上传选择的答案
   load() {
     this.isRight();
     console.log("回答正确数目", this.state.answerCount);
     console.log("最后得分", this.state.answerScore);
-    Taro.navigateTo({
-      url:
-        "/pages/test/result/index?answerScore=" +
-        this.state.answerCount +
-        "&answerScore=" +
-        this.state.answerScore
+    const { answerCount, answerScore } = this.state;
+    //转换类型
+    let answerCount1 = answerCount.toString();
+    let answerScore1 = answerScore.toString();
+
+    Taro.getStorage({
+      key: "id",
+      success: res => {
+        let id = res.data.toString();
+        Taro.request({
+          method: "post",
+          url: baseUrl + "/system/ques",
+          data: {
+            userId: id,
+            ansCount: answerCount1,
+            ansScore: answerScore1
+          },
+          success: response => {
+            //成功才能跳转
+            if (response.code === 200) {
+              Taro.reLaunch({
+                url:
+                  "/pages/test/result/index?answerCount=" +
+                  this.state.answerCount +
+                  "&answerScore=" +
+                  this.state.answerScore
+              });
+            }
+            console.log(response.code);
+          }
+        });
+      }
     });
   }
 
-  //在页面渲染时获取题目
-  // componentWillMount() {
-  //   Taro.getStorage({
-  //     key: "userId",
-  //     success: res => {
-  //       const userId = res.data;
-  //       Taro.getStorage({
-  //         key: "token",
-  //         success: res => {
-  //           const token = res.data;
-  //           Taro.request({
-  //             method: "get",
-  //             url: baseUrl+`/system/answer/question/${userId}`,
-  //             success: res => {
-  //               const { questions } = res.data.data;
-  //               let rightAnswer = [];
-  //               questions.map(Object => {
-  //                 rightAnswer.push(Object.rightAnswer);
-  //               });
-  //               this.setState((this.state.rightAnswer = rightAnswer));
-  //               this.setState((this.state.questions = questions));
-  //               console.log(res.data.message);
-  //             }
-  //           });
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
+  isChoose() {
+    const {
+      chooseValue,
+      merge,
+      index,
+      isChooseA,
+      isChooseB,
+      isChooseC,
+      isChooseD
+    } = this.state;
+    //显示选中状态,如果用户选中了值,勾选记录
+    const i = index;
+    console.log(i);
+    console.log("所有选择", chooseValue);
+    console.log("选中", chooseValue[i - 1]);
+    console.log("daan", merge[i - 1]);
+    console.log(isChooseA, isChooseB, isChooseC, isChooseD);
+    if (chooseValue[i - 1] === merge[i - 1].ansA) {
+      this.setState({ isChooseA: true });
+      this.setState({ isChooseB: false });
+      this.setState({ isChooseC: false });
+      this.setState({ isChooseD: false });
+    } else if (chooseValue[i - 1] === merge[i - 1].ansB) {
+      this.setState({ isChooseB: true });
+      this.setState({ isChooseA: false });
+      this.setState({ isChooseC: false });
+      this.setState({ isChooseD: false });
+    } else if (chooseValue[i - 1] === merge[i - 1].ansC) {
+      this.setState({ isChooseC: true });
+      this.setState({ isChooseA: false });
+      this.setState({ isChooseB: false });
+      this.setState({ isChooseD: false });
+    } else if (chooseValue[i - 1] === merge[i - 1].ansD) {
+      this.setState({ isChooseD: true });
+      this.setState({ isChooseA: false });
+      this.setState({ isChooseB: false });
+      this.setState({ isChooseC: false });
+    } else {
+      this.setState({ isChooseA: false });
+      this.setState({ isChooseB: false });
+      this.setState({ isChooseC: false });
+      this.setState({ isChooseD: false });
+    }
+  }
 
   //上一题
   last() {
     const { index } = this.state;
-    if (index === 0) return alert("已经是第一题了");
-    this.setState({ index: index - 1 });
+    //判断题目为第一题和选项为空情况
+    if (index === 1) {
+      Taro.showToast({
+        title: "已经是第一题了",
+        icon: "error",
+        duration: 2000
+      });
+    } else {
+      this.setState({ index: index - 1 }, () => {
+        const { index, merge } = this.state;
+        if (merge[index - 1].ansC === null) {
+          this.setState({ showAnswerC: false });
+        } else if (merge[index - 1].ansD === null) {
+          this.setState({ showAnswerD: false });
+        } else {
+          this.setState({ showAnswerC: true });
+          this.setState({ showAnswerD: true });
+        }
+        //显示选中状态,如果用户选中了值,勾选记录
+        this.isChoose();
+      });
+    }
   }
   //下一题
   next() {
-    const { index, questions } = this.state;
-    if (index === questions.length - 1) return alert("已经是最后一提了");
-    this.setState({ index: index + 1 });
+    const { index, merge } = this.state;
+    //判断题目为第一题和选项为空情况
+    if (index === merge.length) {
+      Taro.showToast({
+        title: "已经是最后第一题了",
+        icon: "error",
+        duration: 2000
+      });
+    } else {
+      this.setState({ index: index + 1 }, () => {
+        if (merge[index].ansC === null) {
+          this.setState({ showAnswerC: false });
+        } else if (merge[index].ansD === null) {
+          this.setState({ showAnswerD: false });
+        } else {
+          this.setState({ showAnswerC: true });
+          this.setState({ showAnswerD: true });
+        }
+        //选项
+        this.isChoose();
+      });
+    }
   }
 
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {
-    //打开小程序时触发
-    // console.log(1);
-  }
+  // componentDidShow() {
+  //打开小程序时触发
+  // console.log(1);
+  // }
 
   componentDidHide() {
+    //隐藏页面
     //离开小程序时触发
     //离开页面直接触发提交答案
-    console.log(2);
-    //提交
-    // Taro.getStorage({
-    //   key: "token",
-    //   success: function(res) {
-    //     Taro.request({
-    //       method: "post",
-    //       url: "http://47.108.166.59:8678/system/answer/question/12",
-    //       header: {
-    //         Authorization: res.data
-    //       },
-    //       data: {
-    //         answerCount: "5",
-    //         answerScore: "50"
-    //       },
-    //       success: function(res) {
-    //         console.log(res.data);
-    //         this.state.questions = res.data.questions;
-    //       }
-    //     });
-    //   }
-    // });
+    this.load();
   }
 
   render() {
-    const { questions, index } = this.state;
+    const {
+      merge,
+      index,
+      showAnswerC,
+      showAnswerD,
+      isChooseA,
+      isChooseB,
+      isChooseC,
+      isChooseD
+    } = this.state;
     return (
       <View className="page">
-        <Image className="bgi" src="../../../img/背景.png" />
+        <Image className="bgi" src={back} />
         <View className="title">题目</View>
         {/* 倒计时 */}
         <View className="time">
@@ -222,33 +301,51 @@ export default class Answer extends React.Component {
         <View className="content">
           {/* 题目 */}
           <View className="questions">
-            <RadioGroup className="question" key={questions[index].questionId}>
+            <RadioGroup
+              className="question"
+              key={index}
+              onChange={this.handleChange.bind(this)}
+            >
               <View className="quesDetail">
-                {index + 1}.{questions[index].quesDetail}
+                {index}.{merge[index - 1].quesDetail}
               </View>
-              <AtRadio
+              {/* 判断题目是否显示 */}
+              <Radio
+                checked={isChooseA}
                 className="answers"
-                options={[
-                  {
-                    label: `A.${questions[index].quesA}`,
-                    value: index + "." + questions[index].quesA
-                  },
-                  {
-                    label: `B.${questions[index].quesB}`,
-                    value: index + "." + questions[index].quesB
-                  },
-                  {
-                    label: `C.${questions[index].quesC}`,
-                    value: index + "." + questions[index].quesC
-                  },
-                  {
-                    label: `D.${questions[index].quesD}`,
-                    value: index + "." + questions[index].quesD
-                  }
-                ]}
-                value={this.state.value}
-                onClick={this.handleChange.bind(this)}
-              />
+                value={merge[index - 1].ansA}
+              >
+                {"A." + merge[index - 1].ansA}
+              </Radio>
+              <Radio
+                checked={isChooseB}
+                className="answers"
+                value={merge[index - 1].ansB}
+              >
+                {"B." + merge[index - 1].ansB}
+              </Radio>
+              {showAnswerC ? (
+                <Radio
+                  checked={isChooseC}
+                  className="answers"
+                  value={merge[index - 1].ansC}
+                >
+                  {"C." + merge[index - 1].ansC}
+                </Radio>
+              ) : (
+                ""
+              )}
+              {showAnswerD ? (
+                <Radio
+                  checked={isChooseD}
+                  className="answers"
+                  value={merge[index - 1].ansD}
+                >
+                  {"D." + merge[index - 1].ansD}
+                </Radio>
+              ) : (
+                ""
+              )}
             </RadioGroup>
           </View>
         </View>

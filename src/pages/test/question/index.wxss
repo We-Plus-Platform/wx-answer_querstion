@@ -28,25 +28,23 @@
   font-size: 50px;
 }
 .page .content {
-  height: 60%;
+  height: 750px;
   margin-top: 20px;
   letter-spacing: 5px;
   width: 80%;
-  height: 850px;
   background: #ffffff;
   box-shadow: 0px 0px 32px 8px rgba(4, 0, 0, 0.1);
   opacity: 0.8;
   border-radius: 40px;
+  padding: 40px 15px;
 }
 .page .content .questions {
   width: 100%;
-  padding: 40px 30px;
 }
 .page .content .questions .answers {
-  background-color: #e7e6ee;
   width: 80%;
-  margin-top: 100px;
-  font-size: 50px;
+  margin-top: 60px;
+  font-size: 30px;
 }
 .page .btns {
   width: 100%;
@@ -63,15 +61,4 @@
   background: linear-gradient(rgba(18, 214, 223, 0.3) 5%, rgba(247, 15, 255, 0.3) 100%);
   color: #ffffff;
   letter-spacing: 5px;
-}
-taro-view-core.at-radio__title.hydrated {
-  margin-top: 50px;
-  margin-left: 40px;
-  height: 100px;
-  background-color: aqua;
-  letter-spacing: 2px;
-  font-size: 35px;
-}
-taro-text-core.at-countdown__time.hydrated {
-  font-size: 60px;
 }

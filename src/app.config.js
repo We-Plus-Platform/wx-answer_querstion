@@ -1,13 +1,15 @@
 export default {
   pages: [
-    "pages/index/index",
-    "pages/rank/rank/index",
     "pages/test/test/index",
     "pages/test/question/index",
+
+    "pages/index/index",
+    "pages/rank/rank/index",
     "pages/test/result/index",
     "pages/my/changeUser/index",
     "pages/my/my/index",
-    "pages/login/index"
+    "pages/add/index"
+    // "pages/login/index"
   ],
   window: {
     backgroundTextStyle: "light",

@@ -18,18 +18,22 @@ export default class Index extends Component {
     Taro.getUserProfile({
       desc: "用于完善会员资料", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: res => {
+        console.log("information", res.userInfo);
+        const nickName = res.userInfo.nickName;
+        const avatarUrl = res.userInfo.avatarUrl;
         //将用户信息存本地
         Taro.setStorage({
           key: "userInfo",
           data: res.userInfo,
           success: response => {
+            //发送给后端
             Taro.request({
               url: baseUrl + "/system/user/wxLogin",
               method: "post",
               data: {
                 code: this.state.code,
-                nickName: res.nickName,
-                avatarUrl: res.avatarUrl
+                nickName: nickName,
+                avatarUrl: avatarUrl
               },
               success: res => {
                 console.log("成功", res);
@@ -38,8 +42,8 @@ export default class Index extends Component {
                   key: "id",
                   data: res.data.data.userInfo.id
                 });
-                Taro.switchTab({
-                  url: "/pages/my/my/index",
+                Taro.redirectTo({
+                  url: "/pages/add/index",
                   success: res => {
                     console.log(res);
                   }
@@ -54,6 +58,7 @@ export default class Index extends Component {
 
   componentDidMount() {
     // 调用微信登录接口;
+
     // 获取code发送给后端;
     Taro.login({
       success: response => {
@@ -66,7 +71,8 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
-    Taro.clearStorage();
+    //清楚本地缓存
+    // Taro.clearStorage();
     //在用户进入页面进行判断,如果有用户数据,直接跳转到my
     Taro.getStorage({
       key: "userInfo",

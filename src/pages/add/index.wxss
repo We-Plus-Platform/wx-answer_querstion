@@ -1,0 +1,51 @@
+.index {
+  width: 100%;
+  height: 100%;
+}
+.index .back {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.index .posi {
+  padding-top: 50px;
+  text-align: center;
+  color: #6171d8;
+  font-size: 50px;
+}
+.index .college-title,
+.index .qqNum-title,
+.index .realName-title,
+.index .stuNum-title {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
+}
+.index .college,
+.index .qqNum,
+.index .realName,
+.index .stuNum {
+  width: 70%;
+  height: 100px;
+  border-radius: 40px;
+  box-shadow: 0px 0px 32px 8px rgba(4, 0, 0, 0.05);
+  color: #6171d8;
+  background: #ffffff;
+  line-height: 100%;
+  padding-left: 30px;
+}
+.index .btn {
+  position: absolute;
+  bottom: 10%;
+  left: 22%;
+  width: 400px;
+  height: 100px;
+  background: #ffffff;
+  color: #6171d8;
+  box-shadow: 0px 0px 32px 8px rgba(4, 0, 0, 0.05);
+  opacity: 0.8;
+  border-radius: 40px;
+}

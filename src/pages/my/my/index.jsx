@@ -50,6 +50,7 @@ export default class Login extends React.Component {
           method: "get",
           url: baseUrl + `/system/user/getInfo/${res.data}`,
           success: res => {
+            console.log(res);
             this.setState({ userInfo: res.data.data.userInfo });
             console.log("my", this.state.userInfo);
           }

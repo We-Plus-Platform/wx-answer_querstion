@@ -25,8 +25,8 @@
   color: #6664d8;
   background-color: #fff;
 }
-.index .content .score {
-  margin-bottom: 10%;
+.index .content .question {
+  margin-bottom: 20%;
 }
 .index .btn {
   position: absolute;

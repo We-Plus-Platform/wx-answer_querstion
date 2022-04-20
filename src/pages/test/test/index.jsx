@@ -11,14 +11,22 @@ export default class Answer extends React.Component {
   state = {
     info: {
       totalCount: "",
-      totalScore: "",
       status: ""
     }
   };
   startTest() {
-    Taro.navigateTo({
-      url: "/pages/test/question/index"
-    });
+    const { status } = this.state.info;
+    if (status === 1) {
+      Taro.showToast({
+        title: "今天已答过题了",
+        icon: "error",
+        duration: 2000
+      });
+    } else {
+      Taro.redirectTo({
+        url: "/pages/test/question/index"
+      });
+    }
   }
   componentDidMount() {
     Taro.getStorage({
@@ -29,8 +37,8 @@ export default class Answer extends React.Component {
           url: baseUrl + `/system/user/getInfo/${res.data}`,
           success: res => {
             console.log(res);
-            this.setState({ info: { ...res.data } });
-            console.log(this.state.info);
+            const { userInfo } = res.data.data;
+            this.setState({ info: userInfo });
           }
         });
       }
@@ -43,8 +51,7 @@ export default class Answer extends React.Component {
       <View className="index">
         <Image className="back" src={back} />
         <View className="content">
-          <View>总答题得分:{info.totalScore}</View>
-          <View>今日答题得分:xxx</View>
+          <View className="score">总答题得分:{info.totalScore}</View>
           <View>今日剩余答题次数:{info.status}</View>
         </View>
         <Button className="btn" onClick={this.startTest.bind(this)}>
