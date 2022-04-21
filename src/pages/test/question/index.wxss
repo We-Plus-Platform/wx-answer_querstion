@@ -28,7 +28,7 @@
   font-size: 50px;
 }
 .page .content {
-  height: 750px;
+  height: 700px;
   margin-top: 20px;
   letter-spacing: 5px;
   width: 80%;
@@ -37,6 +37,14 @@
   opacity: 0.8;
   border-radius: 40px;
   padding: 40px 15px;
+}
+.page .content .answerBack {
+  position: absolute;
+  margin-top: 20%;
+  right: 16%;
+  width: 510px;
+  height: 537px;
+  object-fit: cover;
 }
 .page .content .questions {
   width: 100%;
@@ -48,14 +56,14 @@
 }
 .page .btns {
   width: 100%;
-  height: 20%;
-  margin: 5% 12px;
+  height: 10%;
+  margin: 3% 12px;
 }
 .page .btns .last,
 .page .btns .next,
 .page .btns .load {
   width: 30%;
-  height: 100px;
+  height: 80px;
   font-size: 37px;
   font-family: KaiTi;
   background: linear-gradient(rgba(18, 214, 223, 0.3) 5%, rgba(247, 15, 255, 0.3) 100%);

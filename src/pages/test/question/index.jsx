@@ -9,7 +9,8 @@ import { baseUrl } from "../../baseUrl";
 import "taro-ui/dist/style/components/countdown.scss";
 // import "taro-ui/dist/style/components/radio.scss";
 import "./index.less";
-import { back } from "../../../img/背景.png";
+import back from "../../../img/背景.png";
+import answerBack from "../../../img/答题back.png";
 
 export default class Question extends React.Component {
   state = {
@@ -56,7 +57,7 @@ export default class Question extends React.Component {
           method: "get",
           url: baseUrl + `/system/ques/${res.data}`,
           success: response => {
-            console.log(response);
+            // console.log(response);
             const { selectQues } = response.data;
             //将两个数组进行合并
             // const mergeQues = selectQues.concat(judgeQues);
@@ -67,8 +68,8 @@ export default class Question extends React.Component {
             });
             this.setState({ rightAnswers: rightAnswer });
             this.setState({ merge: selectQues });
-            console.log("@@", this.state.merge);
-            console.log("@@", this.state.rightAnswers);
+            // console.log("@@", this.state.merge);
+            // console.log("@@", this.state.rightAnswers);
             //对第一题选项是空做处理是空
             const { merge, index } = this.state;
             if (merge[index - 1].ansC === null) {
@@ -106,7 +107,7 @@ export default class Question extends React.Component {
     } else {
       chooseValue[index - 1] = "";
     }
-    console.log(chooseValue);
+    // console.log(chooseValue);
   }
   //对答案进行矫正
   isRight() {
@@ -146,8 +147,10 @@ export default class Question extends React.Component {
             ansScore: answerScore1
           },
           success: response => {
+            console.log("提交答案", response.data.code);
             //成功才能跳转
-            if (response.code === 200) {
+            console.log("@", response.data.code);
+            if (response.data.code === 200) {
               Taro.reLaunch({
                 url:
                   "/pages/test/result/index?answerCount=" +
@@ -156,7 +159,6 @@ export default class Question extends React.Component {
                   this.state.answerScore
               });
             }
-            console.log(response.code);
           }
         });
       }
@@ -299,6 +301,7 @@ export default class Question extends React.Component {
           />
         </View>
         <View className="content">
+          <Image className="answerBack" src={answerBack} />
           {/* 题目 */}
           <View className="questions">
             <RadioGroup

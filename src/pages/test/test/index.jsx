@@ -16,7 +16,7 @@ export default class Answer extends React.Component {
   };
   startTest() {
     const { status } = this.state.info;
-    if (status === 1) {
+    if (status === 0) {
       Taro.showToast({
         title: "今天已答过题了",
         icon: "error",

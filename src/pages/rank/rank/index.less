@@ -68,71 +68,82 @@
           头像
  ==================== */
 
-.cu-avatar {
-  font-variant: small-caps;
-  display: inline-flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  white-space: nowrap;
-  position: relative;
-  width: 64rpx;
-  height: 64rpx;
-  background-size: cover;
-  background-position: center;
-  vertical-align: middle;
-  font-size: 1.5em;
-}
-
-.cu-avatar.lg {
-  width: 96rpx;
-  height: 96rpx;
-  font-size: 2em;
-  border-radius: 5000rpx;
-}
-
-.cu-list {
-  margin-top: 30rpx;
-}
-
-.cu-list.menu {
-  .cu-item {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    padding: 0 30rpx;
-    .content {
-      line-height: 1.6em;
-      flex: 1;
-      font-size: 30rpx;
-    }
-    .cur {
-      background-color: #fcf7e9;
-    }
-    .arrow {
-      padding-right: 90rpx;
-    }
+.my-page {
+  width: 100%;
+  height: 100%;
+  .bgi {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
-}
+  // .cu-avatar {
+  //   font-variant: small-caps;
+  //   display: inline-flex;
+  //   text-align: center;
+  //   justify-content: center;
+  //   align-items: center;
+  //   white-space: nowrap;
+  //   position: relative;
+  //   width: 64rpx;
+  //   height: 64rpx;
+  //   background-size: cover;
+  //   background-position: center;
+  //   vertical-align: middle;
+  //   font-size: 1.5em;
+  // }
 
-.cu-list.menu-avatar {
-  .cu-item {
-    padding-left: 140rpx;
-    .cu-avatar {
-      position: absolute;
-      left: 30rpx;
-    }
-  }
-  .cu-item .action {
-    text-align: center;
-  }
-}
+  // .cu-avatar.lg {
+  //   width: 96rpx;
+  //   height: 96rpx;
+  //   font-size: 2em;
+  //   border-radius: 5000rpx;
+  // }
 
-.cu-list.card-menu {
-  margin-left: 30rpx;
-  margin-right: 30rpx;
-  border-radius: 20rpx;
-  overflow: hidden;
+  // .cu-list {
+  //   margin-top: 30rpx;
+  // }
+
+  // .cu-list.menu {
+  //   .cu-item {
+  //     position: relative;
+  //     display: flex;
+  //     justify-content: space-between;
+  //     align-items: center;
+  //     background: #fff;
+  //     padding: 0 30rpx;
+  //     .content {
+  //       line-height: 1.6em;
+  //       flex: 1;
+  //       font-size: 30rpx;
+  //     }
+  //     .cur {
+  //       background-color: #fcf7e9;
+  //     }
+  //     .arrow {
+  //       padding-right: 90rpx;
+  //     }
+  //   }
+  // }
+
+  // .cu-list.menu-avatar {
+  //   .cu-item {
+  //     padding-left: 140rpx;
+  //     .cu-avatar {
+  //       position: absolute;
+  //       left: 30rpx;
+  //     }
+  //   }
+  //   .cu-item .action {
+  //     text-align: center;
+  //   }
+  // }
+
+  // .cu-list.card-menu {
+  //   margin-left: 30rpx;
+  //   margin-right: 30rpx;
+  //   border-radius: 20rpx;
+  //   overflow: hidden;
+  // }
 }

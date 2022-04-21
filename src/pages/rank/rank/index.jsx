@@ -55,7 +55,8 @@ export default class Rank extends Component {
   render() {
     const { myRank } = this.state;
     return (
-      <View className="mw-page">
+      <View className="my-page">
+        <Image className="bgi" src={back} />
         <View className="cu-list menu menu-avatar mw-menu">
           {this.state.rankList.map(rankObj => {
             return (
@@ -79,7 +80,6 @@ export default class Rank extends Component {
         </View>
       </View>
       //   <View className="rank-index">
-      //     <Image className="bgi" src={back} />
       //     <View className="rank-header">
       //       <View className="rank-header-title">重邮最强大脑</View>
       //       <View>排行榜</View>
