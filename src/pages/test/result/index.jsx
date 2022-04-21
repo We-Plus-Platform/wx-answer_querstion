@@ -4,7 +4,6 @@ import Taro, { Current } from "@tarojs/taro";
 
 import "taro-ui/dist/style/components/button.scss"; // 按需引入
 import "./index.less";
-import back from "../../../img/背景.png";
 
 export default class Answer extends React.Component {
   state = {
@@ -30,10 +29,7 @@ export default class Answer extends React.Component {
   render() {
     return (
       <View className="index">
-        <Image
-          className="back"
-          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
-        />
+        <Image className="back" src="http://42.193.15.69/background.png" />
         <View className="content">
           <View className="question">答对题目:{this.state.answerCount}</View>
           <View>答题得分:{this.state.answerScore}</View>

@@ -6,8 +6,8 @@ import { baseUrl } from "../baseUrl";
 
 import "taro-ui/dist/style/components/button.scss"; // 按需引入
 import "./index.less";
-import homeBack from "../../img/背景.png";
-import homeContent from "../../img/首页content.png";
+// import homeBack from "../../img/背景.png";
+// import homeContent from "../../img/首页content.png";
 
 export default class Index extends Component {
   state = {
@@ -37,17 +37,37 @@ export default class Index extends Component {
               },
               success: res => {
                 console.log("成功", res);
+                const { id } = res.data.data.userInfo;
                 // 保存一个id到本地;
                 Taro.setStorage({
                   key: "id",
-                  data: res.data.data.userInfo.id
-                });
-                Taro.redirectTo({
-                  url: "/pages/add/index",
-                  success: res => {
-                    console.log(res);
+                  data: id,
+                  success: response => {
+                    Taro.redirectTo({
+                      url: "/pages/add/index",
+                      success: res => {
+                        console.log(res);
+                      }
+                    });
                   }
                 });
+                // Taro.request({
+                //   method: "get",
+                //   url: baseUrl + `/system/user/getInfo/${id}`,
+                //   success: response => {
+                //     console.log("@", response);
+                //     if (response.data.data.userInfo.stuNum === "") {
+
+                //     } else {
+                //       Taro.switchTab({
+                //         url: "/pages/my/my/index",
+                //         success: res => {
+                //           console.log(res);
+                //         }
+                //       });
+                //     }
+                //   }
+                // });
               }
             });
           }
@@ -71,14 +91,13 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
-    //清楚本地缓存
-    // Taro.clearStorage();
+    //清楚缓存
     //在用户进入页面进行判断,如果有用户数据,直接跳转到my
     Taro.getStorage({
       key: "userInfo",
       success: function(res) {
         if (res.data !== "")
-          return Taro.switchTab({
+          Taro.switchTab({
             url: "/pages/my/my/index",
             success: res => {
               console.log(res);
@@ -93,11 +112,8 @@ export default class Index extends Component {
   render() {
     return (
       <View className="index">
-        <Image
-          className="back"
-          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
-        />
-        <Image className="homeContent" src={homeContent} />
+        <Image className="back" src="http://42.193.15.69/background.png" />
+        <Image className="homeContent" src="http://42.193.15.69/home.png" />
         <Button className="btn" onClick={this.clickMe.bind(this)}>
           进入答题小程序
         </Button>

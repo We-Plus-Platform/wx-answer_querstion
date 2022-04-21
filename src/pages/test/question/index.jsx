@@ -1,6 +1,13 @@
 import React from "react";
 import Taro from "@tarojs/taro";
-import { View, Image, Button, Radio, RadioGroup } from "@tarojs/components";
+import {
+  View,
+  Image,
+  Button,
+  Radio,
+  RadioGroup,
+  Label
+} from "@tarojs/components";
 import { AtCountdown } from "taro-ui";
 
 import { baseUrl } from "../../baseUrl";
@@ -9,7 +16,7 @@ import { baseUrl } from "../../baseUrl";
 import "taro-ui/dist/style/components/countdown.scss";
 // import "taro-ui/dist/style/components/radio.scss";
 import "./index.less";
-import back from "../../../img/背景.png";
+import choosing from "../../../img/choosing.png";
 import answerBack from "../../../img/答题back.png";
 
 export default class Question extends React.Component {
@@ -242,7 +249,7 @@ export default class Question extends React.Component {
     //判断题目为第一题和选项为空情况
     if (index === merge.length) {
       Taro.showToast({
-        title: "已经是最后第一题了",
+        title: "已经是最后一题了",
         icon: "error",
         duration: 2000
       });
@@ -287,10 +294,7 @@ export default class Question extends React.Component {
     } = this.state;
     return (
       <View className="page">
-        <Image
-          className="bgi"
-          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
-        />
+        <Image className="bgi" src="http://42.193.15.69/background.png" />
         <View className="title">题目</View>
         {/* 倒计时 */}
         <View className="time">
@@ -316,39 +320,63 @@ export default class Question extends React.Component {
                 {index}.{merge[index - 1].quesDetail}
               </View>
               {/* 判断题目是否显示 */}
-              <Radio
-                checked={isChooseA}
-                className="answers"
-                value={merge[index - 1].ansA}
-              >
-                {"A." + merge[index - 1].ansA}
-              </Radio>
-              <Radio
-                checked={isChooseB}
-                className="answers"
-                value={merge[index - 1].ansB}
-              >
-                {"B." + merge[index - 1].ansB}
-              </Radio>
-              {showAnswerC ? (
+              <Label>
+                {isChooseA ? (
+                  <Image className="choosing" src={choosing}></Image>
+                ) : (
+                  ""
+                )}
                 <Radio
-                  checked={isChooseC}
+                  // onClick={chooseValue}
                   className="answers"
-                  value={merge[index - 1].ansC}
+                  value={merge[index - 1].ansA}
                 >
-                  {"C." + merge[index - 1].ansC}
+                  {"A." + merge[index - 1].ansA}
                 </Radio>
+              </Label>
+              <Label>
+                {isChooseB ? (
+                  <Image className="choosing" src={choosing}></Image>
+                ) : (
+                  ""
+                )}
+                <Radio className="answers" value={merge[index - 1].ansB}>
+                  {"B." + merge[index - 1].ansB}
+                </Radio>
+              </Label>
+              {showAnswerC ? (
+                <Label>
+                  {isChooseC ? (
+                    <Image className="choosing" src={choosing}></Image>
+                  ) : (
+                    ""
+                  )}
+                  <Radio
+                    checked={isChooseC}
+                    className="answers"
+                    value={merge[index - 1].ansC}
+                  >
+                    {"C." + merge[index - 1].ansC}
+                  </Radio>
+                </Label>
               ) : (
                 ""
               )}
               {showAnswerD ? (
-                <Radio
-                  checked={isChooseD}
-                  className="answers"
-                  value={merge[index - 1].ansD}
-                >
-                  {"D." + merge[index - 1].ansD}
-                </Radio>
+                <Label>
+                  {isChooseD ? (
+                    <Image className="choosing" src={choosing}></Image>
+                  ) : (
+                    ""
+                  )}
+                  <Radio
+                    checked={isChooseD}
+                    className="answers"
+                    value={merge[index - 1].ansD}
+                  >
+                    {"D." + merge[index - 1].ansD}
+                  </Radio>
+                </Label>
               ) : (
                 ""
               )}

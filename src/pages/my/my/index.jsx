@@ -4,13 +4,15 @@ import Taro from "@tarojs/taro";
 import { baseUrl } from "../../baseUrl";
 
 import "taro-ui/dist/style/components/button.scss"; // 按需引入
+import "taro-ui/dist/style/components/modal.scss";
+import { AtModal } from "taro-ui";
 import "./index.less";
-import homeBack from "../../../img/背景.png";
 
 export default class Login extends React.Component {
   //渲染我的页面信息
   state = {
-    userInfo: {}
+    userInfo: {},
+    isOpen: false
   };
   //更改用户信息
   changeUser() {
@@ -38,9 +40,10 @@ export default class Login extends React.Component {
   }
   //问题反馈
   loadQuestion() {
-    Taro.navigateTo({
-      url: "/pages/my/chat/index"
-    });
+    this.setState({ isOpen: true });
+  }
+  handleConfirm() {
+    console.log("@");
   }
   componentDidMount() {
     Taro.getStorage({
@@ -69,14 +72,11 @@ export default class Login extends React.Component {
     } = this.state.userInfo;
     return (
       <View className="index">
-        <Image
-          className="back"
-          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
-        />
+        <Image className="back" src="http://42.193.15.69/background.png" />
         <View className="inf">
           <Image className="avatarUrl" src={avatarUrl}></Image>
           <View>学院:{college}</View>
-          <View>真实姓名:{realName}</View>
+          <View>姓名:{realName}</View>
           <View>学号:{stuNum}</View>
           <View>昵称:{nickName}</View>
           <View>QQ:{qqNum}</View>
@@ -86,6 +86,11 @@ export default class Login extends React.Component {
         </View>
         <View className="loadQuestion" onClick={this.loadQuestion.bind(this)}>
           问题反馈
+          <AtModal
+            isOpened={this.state.isOpen}
+            title="反馈"
+            content="如有疑问请加QQ群:879550553"
+          />
         </View>
       </View>
     );

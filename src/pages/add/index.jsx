@@ -4,7 +4,6 @@ import Taro from "@tarojs/taro";
 
 import "taro-ui/dist/style/components/button.scss"; // 按需引入
 import "./index.less";
-import homeBack from "../../img/背景.png";
 import { baseUrl } from "../baseUrl";
 
 export default class Add extends React.Component {
@@ -22,53 +21,58 @@ export default class Add extends React.Component {
   getqqNum = createRef();
   getstuNum = createRef();
   getrealName = createRef();
-  //更改信息
+  //提交信息
   saveInf() {
     const college = this.getcollege.current.value;
     const qqNum = this.getqqNum.current.value;
     const stuNum = this.getstuNum.current.value;
     const realName = this.getrealName.current.value;
-    Taro.getStorage({
-      key: "id",
-      success: function(res) {
-        //将数字类型的id转为字符类型
-        let wid = res.data.toString();
-        console.log("@@", wid);
-        Taro.request({
-          method: "post",
-          url: baseUrl + "/system/user/add",
-          data: {
-            wid: wid,
-            stuNum: stuNum,
-            college: college,
-            qqNum: qqNum,
-            realName: realName
-          },
-          success: res => {
-            console.log("@", res);
-            Taro.switchTab({
-              url: "/pages/my/my/index",
-              success: res => {
-                Taro.showToast({
-                  title: "提交成功",
-                  icon: "success",
-                  duration: 2000
-                });
-              }
-            });
-          }
-        });
-      }
-    });
+    if (college === "" || qqNum === "" || stuNum === "" || realName === "") {
+      Taro.showToast({
+        title: "请填写信息",
+        icon: "error",
+        duration: 2000
+      });
+    } else {
+      Taro.getStorage({
+        key: "id",
+        success: function(res) {
+          //将数字类型的id转为字符类型
+          let wid = res.data.toString();
+          console.log("@@", wid);
+          Taro.request({
+            method: "post",
+            url: baseUrl + "/system/user/add",
+            data: {
+              wid: wid,
+              stuNum: stuNum,
+              college: college,
+              qqNum: qqNum,
+              realName: realName
+            },
+            success: res => {
+              console.log("@", res);
+              Taro.switchTab({
+                url: "/pages/my/my/index",
+                success: res => {
+                  Taro.showToast({
+                    title: "提交成功",
+                    icon: "success",
+                    duration: 2000
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
   }
   render() {
     // const { nickName, college, qqNum, realName, stuNum } = this.state.userInfo;
     return (
       <View className="index">
-        <Image
-          className="back"
-          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
-        />
+        <Image className="back" src="http://42.193.15.69/background.png" />
         <View className="posi">添加信息</View>
         <View className="college-title">
           <Text>学院</Text>
