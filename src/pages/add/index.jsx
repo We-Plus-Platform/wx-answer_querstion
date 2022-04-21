@@ -65,7 +65,10 @@ export default class Add extends React.Component {
     // const { nickName, college, qqNum, realName, stuNum } = this.state.userInfo;
     return (
       <View className="index">
-        <Image className="back" src={homeBack} />
+        <Image
+          className="back"
+          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
+        />
         <View className="posi">添加信息</View>
         <View className="college-title">
           <Text>学院</Text>

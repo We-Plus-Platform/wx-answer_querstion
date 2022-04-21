@@ -1,16 +1,14 @@
 export default {
   pages: [
     "pages/rank/rank/index",
-
     "pages/test/test/index",
-
     "pages/test/question/index",
     "pages/index/index",
     "pages/test/result/index",
     "pages/my/changeUser/index",
+    "pages/my/chat/index",
     "pages/my/my/index",
     "pages/add/index"
-    // "pages/login/index"
   ],
   window: {
     backgroundTextStyle: "light",

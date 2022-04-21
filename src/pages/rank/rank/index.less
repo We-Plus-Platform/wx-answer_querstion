@@ -1,76 +1,8 @@
-// .rank-index {
-//   width: 100%;
-//   height: 100%;
-//   margin: 0;
-//   padding: 0;
-//   .bgi {
-//     position: absolute;
-//     z-index: -1;
-//     width: 100%;
-//     height: 100%;
-//     object-fit: cover;
-//   }
-//   .userImg {
-//     height: 100px;
-//     width: 100px;
-//     border-radius: 50%;
-//   }
-//   .rank-header {
-//     height: 20%;
-//     font-size: 67px;
-//     font-family: Adobe Heiti Std;
-//     font-weight: normal;
-//     color: rgba(1, 94, 234, 0.7);
-//     text-align: center;
-//     .rank-header-title {
-//       padding-top: 5%;
-//     }
-//   }
-//   .rank {
-//     height: 80%;
-//     border-top-left-radius: 5%;
-//     border-top-right-radius: 5%;
-//     background-color: #fff;
-//     // display: flex;
-//     // flex-direction: column;
-//     // justify-content: space-between;
-//     padding: 0 40px;
-//     .rank-my {
-//       display: flex;
-//       align-items: center;
-//       justify-content: space-around;
-//       height: 80px;
-//       // background-color: aquamarine;
-//       color: rgba(1, 135, 249, 1);
-//     }
-//     .rank-all {
-//       width: 100%;
-//       display: flex;
-//       flex-direction: column;
-//       background-color: aqua;
-//       color: rgba(67, 70, 69, 1);
-//       .rank-title {
-//         color: rgba(191, 195, 198, 1);
-//         display: flex;
-//         justify-content: space-around;
-//       }
-//       .rank-content {
-//         height: 200px;
-//         display: flex;
-//         justify-content: space-around;
-//         align-items: center;
-//       }
-//     }
-//   }
-// }
-
-/* ==================
-          头像
- ==================== */
-
 .my-page {
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
   .bgi {
     position: absolute;
     z-index: -1;
@@ -78,72 +10,84 @@
     height: 100%;
     object-fit: cover;
   }
-  // .cu-avatar {
-  //   font-variant: small-caps;
-  //   display: inline-flex;
-  //   text-align: center;
-  //   justify-content: center;
-  //   align-items: center;
-  //   white-space: nowrap;
-  //   position: relative;
-  //   width: 64rpx;
-  //   height: 64rpx;
-  //   background-size: cover;
-  //   background-position: center;
-  //   vertical-align: middle;
-  //   font-size: 1.5em;
-  // }
-
-  // .cu-avatar.lg {
-  //   width: 96rpx;
-  //   height: 96rpx;
-  //   font-size: 2em;
-  //   border-radius: 5000rpx;
-  // }
-
-  // .cu-list {
-  //   margin-top: 30rpx;
-  // }
-
-  // .cu-list.menu {
-  //   .cu-item {
-  //     position: relative;
-  //     display: flex;
-  //     justify-content: space-between;
-  //     align-items: center;
-  //     background: #fff;
-  //     padding: 0 30rpx;
-  //     .content {
-  //       line-height: 1.6em;
-  //       flex: 1;
-  //       font-size: 30rpx;
-  //     }
-  //     .cur {
-  //       background-color: #fcf7e9;
-  //     }
-  //     .arrow {
-  //       padding-right: 90rpx;
-  //     }
-  //   }
-  // }
-
-  // .cu-list.menu-avatar {
-  //   .cu-item {
-  //     padding-left: 140rpx;
-  //     .cu-avatar {
-  //       position: absolute;
-  //       left: 30rpx;
-  //     }
-  //   }
-  //   .cu-item .action {
-  //     text-align: center;
-  //   }
-  // }
-
-  // .cu-list.card-menu {
-  //   margin-left: 30rpx;
-  //   margin-right: 30rpx;
-  //   border-radius: 20rpx;
-  //   overflow: hidden;
-  // }
+  .header {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: RGBA(0, 100, 148, 1);
+    .header-brain {
+      font-size: 60px;
+    }
+    .header-rank {
+      font-size: 80px;
+    }
+  }
+  .rank {
+    height: 1334px;
+    background-color: #fff;
+    border-radius: 3% 3% 0 0;
+    font-size: 29px;
+    .my-rank {
+      height: 10%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      color: rgba(1, 135, 249, 1);
+      margin-top: 10px;
+      padding: 10px;
+      box-shadow: 0px 3px 12px 0px rgba(181, 190, 236, 0.3);
+      border-radius: 23px;
+      .my-rank-score {
+        font-size: 37px;
+      }
+      .my-rank-name {
+        color: rgba(34, 34, 34, 1);
+      }
+      .line {
+        color: rgba(245, 245, 245, 1);
+      }
+      .my-avatar {
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+      }
+    }
+    .all-rank {
+      margin-top: 33px;
+      width: 90%;
+      height: 80%;
+      padding: 10px 20px;
+      margin: 0 auto;
+      .title {
+        display: flex;
+        justify-content: space-between;
+        color: rgba(191, 195, 198, 1);
+        font-size: 29px;
+        margin-bottom: 20px;
+      }
+      .rank-content {
+        display: flex;
+        height: 100%;
+        overflow-y: auto;
+        flex-direction: column;
+        .cu-item {
+          height: 100px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2%;
+          .content {
+            display: flex;
+            align-items: center;
+            .cu-avatar.lg {
+              width: 87px;
+              height: 87px;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+    }
+  }
 }

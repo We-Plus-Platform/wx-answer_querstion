@@ -93,7 +93,10 @@ export default class Index extends Component {
   render() {
     return (
       <View className="index">
-        <Image className="back" src={homeBack} />
+        <Image
+          className="back"
+          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
+        />
         <Image className="homeContent" src={homeContent} />
         <Button className="btn" onClick={this.clickMe.bind(this)}>
           进入答题小程序

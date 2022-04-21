@@ -287,7 +287,10 @@ export default class Question extends React.Component {
     } = this.state;
     return (
       <View className="page">
-        <Image className="bgi" src={back} />
+        <Image
+          className="bgi"
+          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
+        />
         <View className="title">题目</View>
         {/* 倒计时 */}
         <View className="time">

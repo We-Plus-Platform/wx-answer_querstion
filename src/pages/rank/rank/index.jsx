@@ -13,13 +13,8 @@ export default class Rank extends Component {
     rankList: [],
     myRank: {}
   };
-  componentWillMount() {}
 
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {
+  componentDidMount() {
     //查询所有人排行
     Taro.request({
       method: "get",
@@ -56,66 +51,58 @@ export default class Rank extends Component {
     const { myRank } = this.state;
     return (
       <View className="my-page">
-        <Image className="bgi" src={back} />
-        <View className="cu-list menu menu-avatar mw-menu">
-          {this.state.rankList.map(rankObj => {
-            return (
-              <View className="cu-item" key={rankObj.basicId}>
-                <Image
-                  className="cu-avatar round lg"
-                  src={rankObj.avatarUrl}
-                ></Image>
-                <View className="content">
-                  <View className="text-gray">第{rankObj.ranking}名</View>
-                  <View className="text-grey text-sm">{rankObj.nickName}</View>
-                </View>
-                <View className="action">
-                  <View className="text-red text-xl">
-                    {rankObj.totalScore}分
+        <Image
+          className="bgi"
+          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
+        />
+        <View className="header">
+          <View className="header-brain">重邮最强大脑</View>
+          <View className="header-rank">排行榜</View>
+        </View>
+        <View className="rank">
+          <View className="my-rank">
+            <View className="my-rank-score">我的成绩</View>
+            <Image
+              className="my-avatar"
+              src="https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLxicJxnWgtFLarslW1RNN6dwnH97fvNM2IZhxbWQfePkx7dY2Ficxt3DSmkia4Xn2Cf6nUQety4NsGg/132"
+            ></Image>
+            <View className="my-rank-name">{myRank.nickName}</View>
+            <View>第{myRank.ranking}名</View>
+            <View className="line">|</View>
+            <View>{myRank.totalScore}分</View>
+          </View>
+          <View className="all-rank">
+            <View className="title">
+              <Text>排名</Text>
+              <Text>姓名</Text>
+              <Text>得分</Text>
+            </View>
+            <View className="rank-content">
+              {this.state.rankList.map(rankObj => {
+                return (
+                  <View className="cu-item" key={rankObj.basicId}>
+                    <View className="text-gray">第{rankObj.ranking}名</View>
+                    <View className="content">
+                      <Image
+                        className="cu-avatar round lg"
+                        src={rankObj.avatarUrl}
+                      ></Image>
+                      <View className="text-grey text-sm">
+                        {rankObj.nickName}
+                      </View>
+                    </View>
+                    <View className="action">
+                      <View className="text-red text-xl">
+                        {rankObj.totalScore}分
+                      </View>
+                    </View>
                   </View>
-                </View>
-              </View>
-            );
-          })}
+                );
+              })}
+            </View>
+          </View>
         </View>
       </View>
-      //   <View className="rank-index">
-      //     <View className="rank-header">
-      //       <View className="rank-header-title">重邮最强大脑</View>
-      //       <View>排行榜</View>
-      //     </View>
-
-      //     {/* 渲染排行 */}
-      //     <View className="rank">
-      //       {/* 个人信息 */}
-      //       <View className="rank-my">
-      //         <Text>我的成绩:</Text>
-      //         {/* <Image className="userImg" src={myRank.avatarUrl} /> */}
-      //         <Text>{myRank.ranking}</Text>
-      //         <Text>{myRank.nickName}</Text>
-      //         <Text>{myRank.totalScore}</Text>
-      //       </View>
-      //       <View className="rank-all">
-      //         <View className="rank-title">
-      //           <Text>排名</Text>
-      //           <Text>姓名</Text>
-      //           <Text>得分</Text>
-      //         </View>
-      //         {this.state.rankList.map(rankObj => {
-      //           return (
-      //             <View className="rank-content" key={rankObj.basicId}>
-      //               <Text>{rankObj.ranking}</Text>
-      //               <View>
-      //                 <Image className="userImg" src={rankObj.avatarUrl} />
-      //                 <Text>{rankObj.nickName}</Text>
-      //               </View>
-      //               <Text>{rankObj.totalScore}</Text>
-      //             </View>
-      //           );
-      //         })}
-      //       </View>
-      //     </View>
-      //   </View>
     );
   }
 }

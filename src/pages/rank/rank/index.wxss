@@ -1,9 +1,8 @@
-/* ==================
-          头像
- ==================== */
 .my-page {
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 .my-page .bgi {
   position: absolute;
@@ -11,4 +10,84 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.my-page .header {
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #006494;
+}
+.my-page .header .header-brain {
+  font-size: 60px;
+}
+.my-page .header .header-rank {
+  font-size: 80px;
+}
+.my-page .rank {
+  height: 1334px;
+  background-color: #fff;
+  border-radius: 3% 3% 0 0;
+  font-size: 29px;
+}
+.my-page .rank .my-rank {
+  height: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #0187f9;
+  margin-top: 10px;
+  padding: 10px;
+  box-shadow: 0px 3px 12px 0px rgba(181, 190, 236, 0.3);
+  border-radius: 23px;
+}
+.my-page .rank .my-rank .my-rank-score {
+  font-size: 37px;
+}
+.my-page .rank .my-rank .my-rank-name {
+  color: #222222;
+}
+.my-page .rank .my-rank .line {
+  color: #f5f5f5;
+}
+.my-page .rank .my-rank .my-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+}
+.my-page .rank .all-rank {
+  margin-top: 33px;
+  width: 90%;
+  height: 80%;
+  padding: 10px 20px;
+  margin: 0 auto;
+}
+.my-page .rank .all-rank .title {
+  display: flex;
+  justify-content: space-between;
+  color: #bfc3c6;
+  font-size: 29px;
+  margin-bottom: 20px;
+}
+.my-page .rank .all-rank .rank-content {
+  display: flex;
+  height: 100%;
+  overflow-y: auto;
+  flex-direction: column;
+}
+.my-page .rank .all-rank .rank-content .cu-item {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2%;
+}
+.my-page .rank .all-rank .rank-content .cu-item .content {
+  display: flex;
+  align-items: center;
+}
+.my-page .rank .all-rank .rank-content .cu-item .content .cu-avatar.lg {
+  width: 87px;
+  height: 87px;
+  border-radius: 50%;
 }

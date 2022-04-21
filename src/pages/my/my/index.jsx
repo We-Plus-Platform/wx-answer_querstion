@@ -39,7 +39,7 @@ export default class Login extends React.Component {
   //问题反馈
   loadQuestion() {
     Taro.navigateTo({
-      url: "/pages/my/changeUser/index"
+      url: "/pages/my/chat/index"
     });
   }
   componentDidMount() {
@@ -69,7 +69,10 @@ export default class Login extends React.Component {
     } = this.state.userInfo;
     return (
       <View className="index">
-        <Image className="back" src={homeBack} />
+        <Image
+          className="back"
+          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
+        />
         <View className="inf">
           <Image className="avatarUrl" src={avatarUrl}></Image>
           <View>学院:{college}</View>

@@ -30,7 +30,10 @@ export default class Answer extends React.Component {
   render() {
     return (
       <View className="index">
-        <Image className="back" src={back} />
+        <Image
+          className="back"
+          src="https://s1.ax1x.com/2022/04/21/LcVsk6.png"
+        />
         <View className="content">
           <View className="question">答对题目:{this.state.answerCount}</View>
           <View>答题得分:{this.state.answerScore}</View>
