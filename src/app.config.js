@@ -1,12 +1,9 @@
 export default {
   pages: [
-    "pages/test/question/index",
-
     "pages/index/index",
-
-    "pages/my/my/index",
-
     "pages/rank/rank/index",
+    "pages/test/question/index",
+    "pages/my/my/index",
     "pages/test/test/index",
     "pages/test/result/index",
     "pages/my/changeUser/index",

@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { View, Button, Image } from "@tarojs/components";
-import { AtButton } from "taro-ui";
 import Taro from "@tarojs/taro";
 import { baseUrl } from "../baseUrl";
 
@@ -16,58 +15,47 @@ export default class Index extends Component {
   };
   clickMe() {
     Taro.getUserProfile({
-      desc: "用于完善会员资料", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      desc: "用于完善用户信息", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: res => {
         console.log("information", res.userInfo);
         const nickName = res.userInfo.nickName;
         const avatarUrl = res.userInfo.avatarUrl;
-        //将用户信息存本地
-        Taro.setStorage({
-          key: "userInfo",
-          data: res.userInfo,
-          success: response => {
-            //发送给后端
-            Taro.request({
-              url: baseUrl + "/system/user/wxLogin",
-              method: "post",
-              data: {
-                code: this.state.code,
-                nickName: nickName,
-                avatarUrl: avatarUrl
-              },
-              success: res => {
-                console.log("成功", res);
-                const { id } = res.data.data.userInfo;
-                // 保存一个id到本地;
-                Taro.setStorage({
-                  key: "id",
-                  data: id,
-                  success: response => {
-                    Taro.redirectTo({
-                      url: "/pages/add/index",
-                      success: res => {
-                        console.log(res);
-                      }
-                    });
+        Taro.request({
+          url: baseUrl + "/system/user/wxLogin",
+          method: "post",
+          data: {
+            code: this.state.code,
+            nickName: nickName,
+            avatarUrl: avatarUrl
+          },
+          success: res => {
+            console.log("成功", res);
+            const { id } = res.data.data.userInfo;
+            // 保存一个id到本地;
+            Taro.setStorage({
+              key: "id",
+              data: id,
+              success: response => {
+                //查询数据库是否有信息
+                Taro.request({
+                  url: baseUrl + `/system/user/getInfo/${id}`,
+                  method: "get",
+                  success: res => {
+                    console.log("@", res);
+                    console.log(res.data.code);
+                    //如果数据库中有信息,则进入个人界面
+                    if (res.data.code == 200) {
+                      Taro.switchTab({
+                        url: "/pages/my/my/index"
+                      });
+                      //没有则是新用户,进入信息填取页面
+                    } else {
+                      Taro.redirectTo({
+                        url: "/pages/add/index"
+                      });
+                    }
                   }
                 });
-                // Taro.request({
-                //   method: "get",
-                //   url: baseUrl + `/system/user/getInfo/${id}`,
-                //   success: response => {
-                //     console.log("@", response);
-                //     if (response.data.data.userInfo.stuNum === "") {
-
-                //     } else {
-                //       Taro.switchTab({
-                //         url: "/pages/my/my/index",
-                //         success: res => {
-                //           console.log(res);
-                //         }
-                //       });
-                //     }
-                //   }
-                // });
               }
             });
           }
@@ -78,7 +66,6 @@ export default class Index extends Component {
 
   componentDidMount() {
     // 调用微信登录接口;
-
     // 获取code发送给后端;
     Taro.login({
       success: response => {
@@ -91,18 +78,18 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
-    //清楚缓存
-    //在用户进入页面进行判断,如果有用户数据,直接跳转到my
+    //在用户进入页面进行判断,如果有用户的id,直接跳转到个人页面
     Taro.getStorage({
-      key: "userInfo",
+      key: "id",
       success: function(res) {
-        if (res.data !== "")
+        if (res.data !== "") {
           Taro.switchTab({
             url: "/pages/my/my/index",
             success: res => {
               console.log(res);
             }
           });
+        }
       }
     });
   }

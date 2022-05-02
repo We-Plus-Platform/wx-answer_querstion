@@ -76,22 +76,22 @@ export default class Add extends React.Component {
         <View className="posi">添加信息</View>
         <View className="college-title">
           <Text>学院</Text>
-          <Input ref={this.getcollege} className="college" />
+          <Input maxlength="12" ref={this.getcollege} className="college" />
         </View>
 
         <View className="qqNum-title">
           <Text>QQ:</Text>
-          <Input ref={this.getqqNum} className="qqNum" />
+          <Input maxlength="10" ref={this.getqqNum} className="qqNum" />
         </View>
 
         <View className="realName-title">
           <Text>名字:</Text>
-          <Input ref={this.getrealName} className="realName" />
+          <Input maxlength="6" ref={this.getrealName} className="realName" />
         </View>
 
         <View className="stuNum-title">
           <Text>学号:</Text>
-          <Input ref={this.getstuNum} className="stuNum" />
+          <Input maxlength="10" ref={this.getstuNum} className="stuNum" />
         </View>
         <Button className="btn" onClick={this.saveInf.bind(this)}>
           提交信息

@@ -77,27 +77,52 @@ export default class Login extends React.Component {
         <View className="posi">修改信息</View>
         <View className="name-title">
           <Text>昵称:</Text>
-          <Input ref={this.getnickName} className="name" value={nickName} />
+          <Input
+            maxlength="10"
+            ref={this.getnickName}
+            className="name"
+            value={nickName}
+          />
         </View>
 
         <View className="college-title">
           <Text>学院</Text>
-          <Input ref={this.getcollege} className="college" value={college} />
+          <Input
+            maxlength="12"
+            ref={this.getcollege}
+            className="college"
+            value={college}
+          />
         </View>
 
         <View className="qqNum-title">
           <Text>QQ:</Text>
-          <Input ref={this.getqqNum} className="qqNum" value={qqNum} />
+          <Input
+            maxlength="10"
+            ref={this.getqqNum}
+            className="qqNum"
+            value={qqNum}
+          />
         </View>
 
         <View className="realName-title">
           <Text>名字:</Text>
-          <Input ref={this.getrealName} className="realName" value={realName} />
+          <Input
+            maxlength="6"
+            ref={this.getrealName}
+            className="realName"
+            value={realName}
+          />
         </View>
 
         <View className="stuNum-title">
           <Text>学号:</Text>
-          <Input ref={this.getstuNum} className="stuNum" value={stuNum} />
+          <Input
+            maxlength="12"
+            ref={this.getstuNum}
+            className="stuNum"
+            value={stuNum}
+          />
         </View>
         <Button className="btn" onClick={this.saveInf.bind(this)}>
           更改信息

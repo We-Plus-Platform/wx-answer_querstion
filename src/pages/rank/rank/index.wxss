@@ -71,12 +71,11 @@
 }
 .my-page .rank .all-rank .rank-content {
   display: flex;
-  height: 100%;
-  overflow-y: auto;
+  height: 80%;
   flex-direction: column;
 }
 .my-page .rank .all-rank .rank-content .cu-item {
-  height: 100px;
+  height: 300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,4 +89,7 @@
   width: 87px;
   height: 87px;
   border-radius: 50%;
+}
+.my-page .rank .all-rank .rank-content .cu-item .content .text-grey.text-sm {
+  width: 200px;
 }

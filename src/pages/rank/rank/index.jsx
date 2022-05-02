@@ -12,7 +12,8 @@ export default class Rank extends Component {
     myRank: {}
   };
 
-  componentDidShow() {
+  //获取信息
+  information() {
     //查询所有人排行
     Taro.request({
       method: "get",
@@ -41,6 +42,17 @@ export default class Rank extends Component {
         });
       }
     });
+  }
+  componentDidShow() {
+    this.information();
+  }
+  onPullDownRefresh() {
+    this.information();
+
+    setTimeout(() => {
+      // 停止下拉刷新
+      Taro.stopPullDownRefresh();
+    }, 1000);
   }
 
   componentDidHide() {}

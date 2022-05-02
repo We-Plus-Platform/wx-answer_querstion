@@ -45,7 +45,25 @@ export default class Login extends React.Component {
   handleConfirm() {
     console.log("@");
   }
-  componentDidMount() {
+  // componentDidMount() {
+  //   Taro.getStorage({
+  //     key: "id",
+  //     success: res => {
+  //       Taro.request({
+  //         method: "get",
+  //         url: baseUrl + `/system/user/getInfo/${res.data}`,
+  //         success: res => {
+  //           console.log(res);
+  //           this.setState({ userInfo: res.data.data.userInfo });
+  //           console.log("my", this.state.userInfo);
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
+
+  componentDidShow() {
+    //在用户进入页面进行判断,如果有用户的id,直接跳转到个人页面
     Taro.getStorage({
       key: "id",
       success: res => {
@@ -53,14 +71,20 @@ export default class Login extends React.Component {
           method: "get",
           url: baseUrl + `/system/user/getInfo/${res.data}`,
           success: res => {
-            console.log(res);
-            this.setState({ userInfo: res.data.data.userInfo });
-            console.log("my", this.state.userInfo);
+            if (res.data.code === 200) {
+              this.setState({ userInfo: res.data.data.userInfo });
+              console.log("my", this.state.userInfo);
+            } else {
+              Taro.redirectTo({
+                url: "/pages/add/index"
+              });
+            }
           }
         });
       }
     });
   }
+
   render() {
     const {
       avatarUrl,

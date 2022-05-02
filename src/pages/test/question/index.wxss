@@ -36,15 +36,16 @@
   box-shadow: 0px 0px 32px 8px rgba(4, 0, 0, 0.1);
   opacity: 0.8;
   border-radius: 40px;
-  padding: 40px 15px;
+  padding: 20px 15px;
 }
-.page .content .answerBack {
+.page .content .main {
+  background-image: url(../../../img/答题back.png);
+  background-size: cover;
   position: absolute;
-  margin-top: 20%;
+  margin-top: 3%;
   right: 16%;
   width: 510px;
   height: 537px;
-  object-fit: cover;
 }
 .page .content .questions {
   width: 100%;
@@ -60,7 +61,10 @@
   position: relative;
   top: 35px;
   left: 11%;
-  z-index: 3;
+  z-index: 0;
+}
+.page .content .questions .quesDetail {
+  margin-bottom: 5%;
 }
 .page .btns {
   width: 100%;

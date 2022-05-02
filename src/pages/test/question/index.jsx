@@ -6,7 +6,8 @@ import {
   Button,
   Radio,
   RadioGroup,
-  Label
+  Label,
+  Text
 } from "@tarojs/components";
 import { AtCountdown } from "taro-ui";
 
@@ -16,8 +17,6 @@ import { baseUrl } from "../../baseUrl";
 import "taro-ui/dist/style/components/countdown.scss";
 // import "taro-ui/dist/style/components/radio.scss";
 import "./index.less";
-import choosing from "../../../img/choosing.png";
-import answerBack from "../../../img/答题back.png";
 
 export default class Question extends React.Component {
   state = {
@@ -274,6 +273,19 @@ export default class Question extends React.Component {
   // console.log(1);
   // }
 
+  chooseA() {
+    this.setState((this.state.isChooseA = true));
+  }
+  chooseB() {
+    this.setState({ isChooseB: true });
+  }
+  chooseC() {
+    this.setState({ isChooseC: true });
+  }
+  chooseD() {
+    console.log(123);
+    this.setState({ isChooseD: !this.state.isChooseD });
+  }
   componentDidHide() {
     //隐藏页面
     //离开小程序时触发
@@ -308,79 +320,60 @@ export default class Question extends React.Component {
           />
         </View>
         <View className="content">
-          <Image className="answerBack" src={answerBack} />
-          {/* 题目 */}
-          <View className="questions">
-            <RadioGroup
-              className="question"
-              key={index}
-              onChange={this.handleChange.bind(this)}
-            >
-              <View className="quesDetail">
-                {index}.{merge[index - 1].quesDetail}
-              </View>
-              {/* 判断题目是否显示 */}
-              <Label>
-                {isChooseA ? (
-                  <Image className="choosing" src={choosing}></Image>
+          {/* <Image className="answerBack" src={answerBack} /> */}
+          <View className="main">
+            {/* 题目 */}
+            <View className="questions">
+              <RadioGroup
+                className="question"
+                key={index}
+                onChange={this.handleChange.bind(this)}
+              >
+                <View className="quesDetail">
+                  {index}.{merge[index - 1].quesDetail}
+                </View>
+                {/* 选项 */}
+                {/* <View className="answers" onClick={this.chooseA.bind(this)}> */}
+                <Label>
+                  <Radio
+                    checked={isChooseA}
+                    value={merge[index - 1].ansA}
+                  ></Radio>
+                  <Text>{"A." + merge[index - 1].ansA}</Text>
+                </Label>
+                {/* </View> */}
+                <View className="answers" onClick={this.chooseB.bind(this)}>
+                  <Label>
+                    <Radio checked={isChooseB} value={merge[index - 1].ansB}>
+                      {"B." + merge[index - 1].ansB}
+                    </Radio>
+                  </Label>
+                </View>
+                {/* 判断题目是否显示 */}
+                {showAnswerC ? (
+                  <View className="answers" onClick={this.chooseC.bind(this)}>
+                    <Label>
+                      <Radio checked={isChooseC} value={merge[index - 1].ansC}>
+                        {"C." + merge[index - 1].ansC}
+                      </Radio>
+                    </Label>
+                  </View>
                 ) : (
                   ""
                 )}
-                <Radio
-                  // onClick={chooseValue}
-                  className="answers"
-                  value={merge[index - 1].ansA}
-                >
-                  {"A." + merge[index - 1].ansA}
-                </Radio>
-              </Label>
-              <Label>
-                {isChooseB ? (
-                  <Image className="choosing" src={choosing}></Image>
+                {showAnswerD ? (
+                  <View className="answers" onClick={this.chooseD.bind(this)}>
+                    <Label>
+                      <Radio checked={isChooseD} value={merge[index - 1].ansD}>
+                        {"D." + merge[index - 1].ansD}
+                      </Radio>
+                    </Label>
+                  </View>
                 ) : (
                   ""
                 )}
-                <Radio className="answers" value={merge[index - 1].ansB}>
-                  {"B." + merge[index - 1].ansB}
-                </Radio>
-              </Label>
-              {showAnswerC ? (
-                <Label>
-                  {isChooseC ? (
-                    <Image className="choosing" src={choosing}></Image>
-                  ) : (
-                    ""
-                  )}
-                  <Radio
-                    checked={isChooseC}
-                    className="answers"
-                    value={merge[index - 1].ansC}
-                  >
-                    {"C." + merge[index - 1].ansC}
-                  </Radio>
-                </Label>
-              ) : (
-                ""
-              )}
-              {showAnswerD ? (
-                <Label>
-                  {isChooseD ? (
-                    <Image className="choosing" src={choosing}></Image>
-                  ) : (
-                    ""
-                  )}
-                  <Radio
-                    checked={isChooseD}
-                    className="answers"
-                    value={merge[index - 1].ansD}
-                  >
-                    {"D." + merge[index - 1].ansD}
-                  </Radio>
-                </Label>
-              ) : (
-                ""
-              )}
-            </RadioGroup>
+              </RadioGroup>
+            </View>
           </View>
         </View>
         {/* 按钮 */}

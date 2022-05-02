@@ -1,3 +1,4 @@
 export default {
-  navigationBarTitleText: "排行"
+  navigationBarTitleText: "排行",
+  enablePullDownRefresh: true
 };
