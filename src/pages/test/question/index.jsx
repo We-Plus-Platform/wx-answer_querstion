@@ -80,6 +80,7 @@ export default class Question extends React.Component {
             const { merge, index } = this.state;
             if (merge[index - 1].ansC === null) {
               this.setState({ showAnswerC: false });
+              this.setState({ showAnswerD: false });
             } else if (merge[index - 1].ansD === null) {
               this.setState({ showAnswerD: false });
             } else {
@@ -230,8 +231,12 @@ export default class Question extends React.Component {
       this.setState({ index: index - 1 }, () => {
         const { index, merge } = this.state;
         if (merge[index - 1].ansC === null) {
+          console.log("上一题判断c", merge[index - 1].ansC === null);
           this.setState({ showAnswerC: false });
+          this.setState({ showAnswerD: false });
         } else if (merge[index - 1].ansD === null) {
+          console.log("上一题判断d", merge[index - 1].ansD === null);
+          this.setState({ showAnswerC: true });
           this.setState({ showAnswerD: false });
         } else {
           this.setState({ showAnswerC: true });
@@ -255,8 +260,12 @@ export default class Question extends React.Component {
     } else {
       this.setState({ index: index + 1 }, () => {
         if (merge[index].ansC === null) {
+          console.log("下一题判断c", merge[index].ansC === null);
           this.setState({ showAnswerC: false });
+          this.setState({ showAnswerD: false });
         } else if (merge[index].ansD === null) {
+          console.log("下一题判断d", merge[index].ansD === null);
+          this.setState({ showAnswerC: true });
           this.setState({ showAnswerD: false });
         } else {
           this.setState({ showAnswerC: true });
@@ -283,7 +292,6 @@ export default class Question extends React.Component {
     this.setState({ isChooseC: true });
   }
   chooseD() {
-    console.log(123);
     this.setState({ isChooseD: !this.state.isChooseD });
   }
   componentDidHide() {
